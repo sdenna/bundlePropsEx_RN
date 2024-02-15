@@ -1,24 +1,23 @@
 import { StyleSheet, Text, View } from 'react-native'
-import React from 'react'
-
-//style={{color: fontColor, fontSize: fontSizeTitle, fontWeight: 'bold'}}
 
 /*
  When you destructure props in a functional component parameter list, you don't need to include curly braces around props.  That is why there are no { } 
  around props
 */
 export default function MyComponent (props) {
+
   // the names used here need to match the names used in myProps that
   // I passed in my App.js
 
   const {title, subTitle, myComponentStyles} = props;
-  console.log(title + " " + subTitle + " " + myComponentStyles.fontColor )
-
+  
+  // to access myComponentStyles I need to access it via the in line styles.  
+  // The styles object cannot access the values
   return (
-    <View style={styles.container}>
-        <View>
-          <Text >{title}</Text>
-          <Text >{subTitle}</Text>
+    <View style={[styles.container, {backgroundColor: myComponentStyles.containerBackground, borderColor: myComponentStyles.fontColor}]}>
+        <View style={styles.textContainer}>
+          <Text style={[styles.title, {color: myComponentStyles.fontColor}]}>{title}</Text>
+          <Text style={[styles.subTitle, {color: myComponentStyles.fontColor}]}>{subTitle}</Text>
       </View>
     </View>
   )
@@ -26,26 +25,22 @@ export default function MyComponent (props) {
 
 const styles = StyleSheet.create({
     title: {
-       // color: fontColor,
-        //fontSize: fontSizeTitle,
+        fontSize: 20,
         fontWeight: 'bold',
     },
     subTitle: {
-       // color: fontColor,
-       // fontSize: fontSizeSubtitle,
+        fontSize: 16,
     }, 
     container: {
-      //  backgroundColor: backgroundColor,
-        height: 150,
         width: '90%',
+        justifyContent: 'center',
+        padding: 10,
+        height: 75,
+        borderWidth: 1,
+        borderRadius: 5,
     },
     textContainer: {
         justifyContent: 'center',
-        alignItems: 'center',
-        backgroundColor: 'grey',
-        borderWidth: 1,
-        borderColor: 'darkgrey',
-        height: 75,
-        width: '90%',
+        alignItems: 'center',  
     },
 })
